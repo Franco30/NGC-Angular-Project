@@ -1,0 +1,297 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>APPLICATION FOR LOCATIONAL CLEARANCE/CERTIFICATE OF ZONING COMPLIANCE</nb-card-header>
+      <nb-card-body>
+        <form #applicantForm="ngForm" (ngSubmit)="onSubmit(applicantForm)">
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="applicantService.selectedApplicant._id">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputname">Name of Applicant :</label>
+              <input type="text" name="name" #name="ngModel" [(ngModel)]="applicantService.selectedApplicant.name"
+                class="form-control" id="inputname" placeholder="Last, First, Middle" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputcorporation">Name of Corporation :</label>
+              <input type="text" placeholder="Enter Name of Corporation" class="form-control" id="inputcorporation"
+                name="corporation" #name="ngModel" [(ngModel)]="applicantService.selectedApplicant.corporation">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputadd">Address/Contact No. of Applicant :</label>
+              <input type="text" name="address" #name="ngModel" [(ngModel)]="applicantService.selectedApplicant.address"
+                class="form-control" id="inputadd" placeholder="Enter Address/Contact No. of Applicant">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputcorpadd">Address/Contact No. of Corporation :</label>
+              <input type="text" placeholder="Enter Address/Contact No. of Corporation" class="form-control"
+                id="inputcorpadd" name="corporationaddress" #name="ngModel"
+                [(ngModel)]="applicantService.selectedApplicant.corporationaddress">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputauthrep">Name of Authorized Representative :</label>
+              <input type="text" name="authrepresentative" #name="ngModel"
+                [(ngModel)]="applicantService.selectedApplicant.authrepresentative" class="form-control"
+                id="inputauthrep" placeholder="Enter Name of Authorized Representative">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputaddauthrep">Address of Authorized Representative :</label>
+              <input type="text" placeholder="Enter Address of Authorized Representative" class="form-control"
+                id="inputaddauthrep" name="addressauthrepresentative" #name="ngModel"
+                [(ngModel)]="applicantService.selectedApplicant.addressauthrepresentative">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="inputprojectype">Project Type :</label>
+              <input type="text" name="projecttype" #name="ngModel"
+                [(ngModel)]="applicantService.selectedApplicant.projecttype" class="form-control" id="inputprojectype"
+                placeholder="Enter Project Type">
+            </div>
+
+            <!-- Project Nature Radio Button -->
+            <div class="form-group col-md-12">
+              <div class="form-check form-check-inline">
+                <label>Project Nature :</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectnature"
+                  [checked]="applicantService.selectedApplicant.projectnature == 'New Development'" type="radio"
+                  name="projectnature" id="projectnature1" value="New Development">New Development
+                <!-- <label class="form-check-label" for="projectnature1">New Development</label> -->
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectnature"
+                  [checked]="applicantService.selectedApplicant.projectnature == 'Improvement'" type="radio"
+                  name="projectnature" id="projectnature2" value="Improvement">Improvement
+                <!-- <label class="form-check-label" for="projectnature2">Improvement</label> -->
+              </div>
+              <div class="form-check form-check-inline" (change)="selectprojectnature($event)">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectnature"
+                  [checked]="applicantService.selectedApplicant.projectnature != 'New Development' && 'Improvement'"
+                  type="radio" name="projectnature" id="projectnature3" value="PleaseSpecify">Others (Specify)
+                <!-- <label class="form-check-label" for="projectnature3">Others (Specify)</label> -->
+              </div>
+              <div class="form-check form-check-inline"
+                *ngIf="PleaseSpecify && applicantService.selectedApplicant.projectnature != 'New Development' && applicantService.selectedApplicant.projectnature != 'Improvement'">
+                <input nbInput fullWidth fieldSize="small" class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectnature" class="form-control form-control-sm"
+                  type="text" name="projectnatureOthers">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputauthrep">Project Location :</label>
+              <input type="text" name="projectlocation" #name="ngModel"
+                [(ngModel)]="applicantService.selectedApplicant.projectlocation" class="form-control" id="inputauthrep"
+                placeholder="Number, Street, Brgy. City, Municipal, Province">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputaddauthrep">Project Area (in sq.m.) :</label>
+              <input type="text" placeholder="Enter Project Area" class="form-control" id="inputaddauthrep"
+                name="projectarea" #name="ngModel" [(ngModel)]="applicantService.selectedApplicant.projectarea">
+            </div>
+          </div>
+
+          <!-- Right Over Land Radio Button -->
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <div class="form-check form-check-inline">
+                <label>Right Over Land :</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.rightoverland"
+                  [checked]="applicantService.selectedApplicant.rightoverland == 'OWNER'" type="radio"
+                  name="rightoverland" id="rightoverland1" value="OWNER">OWNER
+                <!-- <label class="form-check-label" for="rightoverland1">OWNER</label> -->
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.rightoverland"
+                  [checked]="applicantService.selectedApplicant.rightoverland == 'Lessee'" type="radio"
+                  name="rightoverland" id="rightoverland2" value="Lessee">Lessee
+                <!-- <label class="form-check-label" for="rightoverland2">Lessee</label> -->
+              </div>
+              <div class="form-check form-check-inline" (change)="selectrightoverland($event)">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.rightoverland"
+                  [checked]="applicantService.selectedApplicant.rightoverland != 'OWNER' && 'Lessee'" type="radio"
+                  name="rightoverland" id="rightoverland3" value="Specify">Others (Specify)
+                <!-- <label class="form-check-label" for="rightoverland3">Others (Specify)</label> -->
+              </div>
+              <div class="form-check form-check-inline"
+                *ngIf="Specify && applicantService.selectedApplicant.rightoverland != 'OWNER' && applicantService.selectedApplicant.rightoverland != 'Lessee'">
+                <input nbInput fullWidth fieldSize="small" class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.rightoverland" class="form-control form-control-sm"
+                  type="text" name="rightoverlandOthers">
+              </div>
+            </div>
+
+            <!-- Project Tenure Radio Button -->
+            <div class="form-group col-md-12">
+              <div class="form-check form-check-inline">
+                <label>Project Tenure :</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projecttenure"
+                  [checked]="applicantService.selectedApplicant.projecttenure == 'Permanent'" type="radio"
+                  name="projecttenure" id="projecttenure1" value="Permanent">Permanent
+                <!-- <label class="form-check-label" for="projecttenure1">Permanent</label> -->
+              </div>
+              <div class="form-check form-check-inline" (change)="selectProjectTenure($event)">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projecttenure"
+                  [checked]="applicantService.selectedApplicant.projecttenure != 'Permanent'" type="radio"
+                  name="projecttenure" id="projecttenure2" value="OthersSpecify">Temporary (Specify)
+                <!-- <label class="form-check-label" for="projecttenure2">Temporary (Specify)</label> -->
+              </div>
+              <div class="form-check form-check-inline"
+                *ngIf="OthersSpecify && applicantService.selectedApplicant.projecttenure != 'Permanent'">
+                <input nbInput fullWidth fieldSize="small" class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projecttenure" class="form-control form-control-sm"
+                  type="text" name="projecttenureOthers">
+              </div>
+            </div>
+          </div>
+
+          <!-- Existing Land use of Project Site Radio Button -->
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <div class="form-check form-check-inline">
+                <label>Existing Land use of Project Site :</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectsite"
+                  [checked]="applicantService.selectedApplicant.projectsite == 'Residential'" type="radio"
+                  name="projectsite" id="projectsite1" value="Residential">Residential
+                <!-- <label class="form-check-label" for="projectsite1">Residential</label> -->
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectsite"
+                  [checked]="applicantService.selectedApplicant.projectsite == 'Institutional'" type="radio"
+                  name="projectsite" id="projectsite2" value="Institutional">Institutional
+                <!-- <label class="form-check-label" for="projectsite2">Institutional</label> -->
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectsite"
+                  [checked]="applicantService.selectedApplicant.projectsite == 'Commercial'" type="radio"
+                  name="projectsite" id="projectsite3" value="Commercial">Commercial
+                <!-- <label class="form-check-label" for="projectsite3">Commercial</label> -->
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel"
+                  [(ngModel)]="applicantService.selectedApplicant.projectsite"
+                  [checked]="applicantService.selectedApplicant.projectsite == 'Industrial'" type="radio"
+                  name="projectsite" id="projectsite4" value="Industrial">Industrial
+                <!-- <label class="form-check-label" for="projectsite4">Industrial</label> -->
+              </div>
+              <div class="form-check form-check-inline" (change)="selectProject($event)">
+                <input class="form-check-input" #name="ngModel" placeholder="Others (Specify)"
+                  [(ngModel)]="applicantService.selectedApplicant.projectsite"
+                  [checked]="applicantService.selectedApplicant.projectsite != 'Residential' && 'Institutional' && 'Commercial' && 'Industrial'"
+                  type="radio" name="projectsite" id="projectsite5" value="Others">Others (Specify)
+                <!-- <label class="form-check-label" for="projectsite5">Others (Specify)</label> -->
+              </div>
+              <div class="form-check form-check-inline"
+                *ngIf="Others && applicantService.selectedApplicant.projectsite != 'Residential'  && applicantService.selectedApplicant.projectsite != 'Institutional' && applicantService.selectedApplicant.projectsite != 'Commercial' && applicantService.selectedApplicant.projectsite != 'Industrial'">
+                <input nbInput fullWidth fieldSize="small" class="form-check-input" #name="ngModel" placeholder="Others (Specify)"
+                  [(ngModel)]="applicantService.selectedApplicant.projectsite" class="form-control form-control-sm"
+                  type="text" name="projectsiteOthers">
+              </div>
+            </div>
+
+
+            <!-- STATUS RADIO BUTTON -->
+            <div class="form-group col-md-12">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" #name="ngModel" [(ngModel)]="applicantService.selectedApplicant.status"
+                  [checked]="applicantService.selectedApplicant.status == 'Vacant/Idle'" type="radio" name="status"
+                  id="status1" value="Vacant/Idle">Vacant Idle
+                <!-- <label class="form-check-label" for="status1">Vacant/Idle</label> -->
+              </div>
+
+              <div class="form-check form-check-inline" (change)="selectInput($event)">
+                <input class="form-check-input" #name="ngModel" [(ngModel)]="applicantService.selectedApplicant.status"
+                  [checked]="applicantService.selectedApplicant.status != 'Vacant/Idle'" type="radio" name="status"
+                  id="status2" value="Agricultural">Agricultural (Specify Crop)
+                <!-- <label class="form-check-label" for="status2">Agricultural (Specify Crop)</label> -->
+              </div>
+              <div class="form-check form-check-inline"
+                *ngIf="Agricultural && applicantService.selectedApplicant.status != 'Vacant/Idle'">
+                <input nbInput fullWidth fieldSize="small" class="form-check-input"
+                  #name="ngModel" placeholder="Agricultural (Specify Crop)"
+                  [(ngModel)]="applicantService.selectedApplicant.status" class="form-control form-control-sm"
+                  type="text" name="statusOthers">
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="projectcost1">Project Cost/Capitalization :</label>
+              <input type="text" name="projectcost" #name="ngModel"
+                [(ngModel)]="applicantService.selectedApplicant.projectcost" class="form-control" id="projectcost1"
+                placeholder="in pesos, write in words and figures">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <button type="button" class="btn btn-outline-info" style="float: right;"
+                (click)="resetForm(applicantForm); PleaseSpecify = false; Specify = false; OthersSpecify = false;  Others = false; Agricultural = false">Reset</button>
+              <button type="submit" class="btn btn-outline-success" style="float: right;"
+                [disabled]="!applicantForm.valid"
+                (click)="onSubmit(applicantForm); PleaseSpecify = false; Specify = false; OthersSpecify = false; Others = false; Agricultural = false">Submit</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>APPLICATION FOR LOCATIONAL CLEARANCE/CERTIFICATE OF ZONING COMPLIANCE</nb-card-header>
+      <nb-card-body>
+        <table class="table table-bordered table-striped table-dark">
+          <thead>
+            <tr>
+              <th>Name of Applicant</th>
+              <th>Name of Corporation</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of applicantService.applicant">
+              <td>{{app.name}}</td>
+              <td>{{app.corporation}}</td>
+              <td>
+                <button type="submit" (click)="onEdit(app)" class="btn btn-info" style="float: center;">Edit</button>
+                <button type="submit" (click)="onDelete(app._id,applicantForm)" class="btn btn-danger"
+                  style="float: center;">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

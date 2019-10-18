@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>TODO APP</nb-card-header>
+      <nb-card-body>
+        <form #todoForm="ngForm" (ngSubmit)="onSubmit(todoForm)">
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="todoService.selectedTodo._id">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <input type="text" name="task" #name="ngModel" [(ngModel)]="todoService.selectedTodo.task"
+                class="form-control" id="inputtask" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <button type="button" class="btn btn-outline-info" style="float: right;"
+                (click)="resetForm(todoForm)">Reset</button>
+              <button type="submit" class="btn btn-outline-primary" style="float: right;" [disabled]="!todoForm.valid"
+                *ngIf="!isUpdate" (click)="onSubmit(todoForm);isUpdate = false">Submit</button>
+              <button type="submit" class="btn btn-outline-success" style="float: right;" [disabled]="!todoForm.valid"
+                (click)="onUpdate(todoForm); isUpdate = false" *ngIf="isUpdate">Update</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>TODO APP</nb-card-header>
+      <nb-card-body>
+        <table class="table table-bordered table-striped table-dark">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let todo of todoService.todo">
+              <td>{{todo.task}}</td>
+              <td>
+                <button type="submit" (click)="onEdit(todo); isUpdate = true" class="btn btn-info"
+                  style="float: center;">Edit</button>
+                <button type="submit" (click)="onDelete(todo._id,todoForm)" class="btn btn-danger"
+                  style="float: center;">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

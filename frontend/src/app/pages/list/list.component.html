@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>APPLICATION FOR LOCATIONAL CLEARANCE/CERTIFICATE OF ZONING COMPLIANCE</nb-card-header>
+      <nb-card-body>
+        <table class="table table-bordered table-striped table-dark">
+          <thead>
+            <tr>
+              <th>Name of Applicant</th>
+              <th>Name of Corporation</th>
+              <th>Address/Contact No. of Applicant</th>
+              <th>Address/Contact No. of Corporation</th>
+              <th>Name of Authorized Representative</th>
+              <th>Address of Authorized Representative</th>
+              <th>Project Type</th>
+              <th>Project Nature</th>
+              <th>Project Location</th>
+              <th>Project Area</th>
+              <th>Right Over Land</th>
+              <th>Project Tenure</th>
+              <th>Project Site</th>
+              <th></th>
+              <th>Project Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of applicantService.applicant">
+              <td>{{app.name}}</td>
+              <td>{{app.corporation}}</td>
+              <td>{{app.address}}</td>
+              <td>{{app.corporationaddress}}</td>
+              <td>{{app.authrepresentative}}</td>
+              <td>{{app.addressauthrepresentative}}</td>
+              <td>{{app.projecttype}}</td>
+              <td>{{app.projectnature}}</td>
+              <td>{{app.projectlocation}}</td>
+              <td>{{app.projectarea}}</td>
+              <td>{{app.rightoverland}}</td>
+              <td>{{app.projecttenure}}</td>
+              <td>{{app.projectsite}}</td>
+              <td>{{app.status}}</td>
+              <td>{{app.projectcost}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
